@@ -3,15 +3,17 @@ package org.fredypalacios;
 public class Main {
     public static void main(String[] args) {
         String xmlPath = "/Users/fredy/Desktop/contracts.xml";
-
         DatabaseManager databaseManager = new DatabaseManager();
 
         try {
-            System.out.println("Initializing database setup");
+            // Create database
             databaseManager.createTable();
-            System.out.println("Successfully initialized database");
+
+            // Insert data from xml to database
+            databaseManager.insertData(xmlPath);
+
         } catch (Exception e) {
-            System.out.println("Error initializing database");
+            throw new RuntimeException(e);
         }
     }
 }
