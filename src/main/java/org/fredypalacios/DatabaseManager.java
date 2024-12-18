@@ -4,15 +4,15 @@ import java.sql.*;
 import java.util.List;
 
 public class DatabaseManager {
-    private static final String DB_URL = "jdbc:mysql://localhost/contractsDB";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "";
 
-    public DatabaseManager() {
-    }
+    public DatabaseManager() {}
 
     public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(DB_URL, DB_USER , DB_PASSWORD);
+        return DriverManager.getConnection(
+                AppConfig.DB_URL,
+                AppConfig.DB_USER,
+                AppConfig.DB_PASSWORD
+        );
     }
 
     //Method to create the table in the database.
@@ -37,8 +37,8 @@ public class DatabaseManager {
                 pstmt.execute();
 
             }
-        } catch (Exception e) {
-            System.out.println("The connection could not be established while creating the table.");
+        } catch (SQLException e) {
+            System.err.println("The connection could not be established while creating the table.");
         }
         System.out.println("Successfully created table Contracts");
     }

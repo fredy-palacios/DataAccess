@@ -8,6 +8,8 @@ import java.util.List;
 
 public class XMLParserToDB {
 
+    public XMLParserToDB() {}
+
     // Method to parse the XML file and extract the data
     public static List<String[]> parseXML(String xmlPath) throws Exception {
         List<String[]> rowsData = new ArrayList<>();
@@ -17,11 +19,9 @@ public class XMLParserToDB {
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document document = builder.parse(file);
 
-        //Retrieve all <Row> nodes.
-        NodeList rowList = document.getElementsByTagName("Row");
+        NodeList rowList = document.getElementsByTagName("Row"); //Retrieve all <Row> nodes.
 
-        // Iterate through rows
-        for (int i = 1; i < rowList.getLength(); i++) {
+        for (int i = 1; i < rowList.getLength(); i++) { // Iterate through rows
             Node row = rowList.item(i);
             if (row.getNodeType() == Node.ELEMENT_NODE) {
                 Element rowElement = (Element) row;
@@ -30,12 +30,10 @@ public class XMLParserToDB {
                 String[] values = new String[8];
                 int currentIndex = 0;
 
-                // Iterate through cells
-                for (int j = 0; j < cellList.getLength(); j++) {
+                for (int j = 0; j < cellList.getLength(); j++) { // Iterate through cells
                     Element cell = (Element) cellList.item(j);
 
-                    // Handling ss:Index to account for column skips.
-                    if (cell.hasAttribute("ss:Index")) {
+                    if (cell.hasAttribute("ss:Index")) { // Handling ss:Index to account for column skips.
                         currentIndex = Integer.parseInt(cell.getAttribute("ss:Index")) - 1;
                     }
 
@@ -43,8 +41,7 @@ public class XMLParserToDB {
                         break;
                     }
 
-                    // Retrieve the value of <Data>
-                    Node dataNode = cell.getElementsByTagName("Data").item(0);
+                    Node dataNode = cell.getElementsByTagName("Data").item(0); // Retrieve the value of <Data>
                     String value = (dataNode != null) ? dataNode.getTextContent() : "";
                     values[currentIndex] = value;
                     currentIndex++;
