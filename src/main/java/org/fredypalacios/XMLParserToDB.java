@@ -6,7 +6,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XMLParser {
+public class XMLParserToDB {
 
     // Method to parse the XML file and extract the data
     public static List<String[]> parseXML(String xmlPath) throws Exception {
@@ -17,6 +17,7 @@ public class XMLParser {
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document document = builder.parse(file);
 
+        //Retrieve all <Row> nodes.
         NodeList rowList = document.getElementsByTagName("Row");
 
         // Iterate through rows

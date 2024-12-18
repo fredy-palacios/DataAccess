@@ -48,8 +48,10 @@ public class DatabaseManager {
             String insertSQL = "INSERT INTO contracts " +
                     "(nif, adjudicatario, objeto_generico, objeto, fecha_de_adjudicacion, importe, proveedores_consultados, tipo_de_contrato) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
             // Parse the XML file to retrieve data
-            List<String[]> rowsData = XMLParser.parseXML(xmlPath);
+            List<String[]> rowsData = XMLParserToDB.parseXML(xmlPath);
+
             // Iterate through each row of data
             try (PreparedStatement preparedStatement = connection.prepareStatement(insertSQL)) {
                 System.out.println("Inserting rows into database...");
